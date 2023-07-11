@@ -10,7 +10,7 @@ export default function Signup() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const {db} = useContext(FirebaseContext);
-  const handleSubmit = (e) => {
+  const handleSubmit = (e)  => {
     e.preventDefault();
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password).then((res)=>{

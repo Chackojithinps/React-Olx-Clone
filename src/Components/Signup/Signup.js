@@ -12,6 +12,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { useNavigate,Link } from "react-router-dom";
 
 export default function Signup() {
+
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -22,11 +23,11 @@ export default function Signup() {
 
   const [password, setPassword] = useState("");
 
-  const { db } = useContext(FirebaseContext);
+  const { db,app } = useContext(FirebaseContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const auth = getAuth();
+    const auth = getAuth(app);
     createUserWithEmailAndPassword(auth, email, password).then((res) => {
       updateProfile(res.user, {
         displayName: username,

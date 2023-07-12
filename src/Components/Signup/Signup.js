@@ -1,35 +1,50 @@
-import React, { useState,useContext } from 'react';
-import Logo from '../../olx-logo.png';
-import './Signup.css';
-import FirebaseContext from '../../store/firebaseContext';
-import { getAuth, createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import Logo from "../../olx-logo.png";
+import "./Signup.css";
+import FirebaseContext from "../../store/firebaseContext";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+
+import { doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+
 export default function Signup() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const {db} = useContext(FirebaseContext);
-  const handleSubmit = (e)  => {
+
+  const [username, setUsername] = useState("");
+
+  const [email, setEmail] = useState("");
+
+  const [phone, setPhone] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const { db } = useContext(FirebaseContext);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password).then((res)=>{
+    createUserWithEmailAndPassword(auth, email, password).then((res) => {
       updateProfile(res.user, {
-        displayName:username
-      }).then(()=>{
-        setDoc(doc(db, "users",res.user.displayName),{
-          id:res.user.uid,
-          username:username,
-          phone:phone
-        }).then(()=>{
-          navigate('/login');
-        })
+        displayName: username,
       })
       
-    })
-   };
+      .then(() => {
+        setDoc(doc(db, "users", res.user.displayName), {
+          id: res.user.uid,
+          username: username,
+          phone: phone,
+        })
+        
+        .then(() => {
+          navigate("/login");
+        });
+      });
+    });
+  };
 
   return (
     <div>

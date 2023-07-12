@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -98,7 +98,7 @@ export default function Signup() {
           <br />
           <button type="submit">Signup</button>
         </form>
-        <a href="/">Login</a>
+        <Link to="/login">Login</Link>
       </div>
     </div>
   );

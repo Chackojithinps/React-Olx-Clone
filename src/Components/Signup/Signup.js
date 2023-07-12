@@ -3,8 +3,10 @@ import Logo from '../../olx-logo.png';
 import './Signup.css';
 import FirebaseContext from '../../store/firebaseContext';
 import { getAuth, createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
-
+import { doc, setDoc } from "firebase/firestore"; 
+import { useNavigate } from 'react-router-dom';
 export default function Signup() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -16,8 +18,16 @@ export default function Signup() {
     createUserWithEmailAndPassword(auth, email, password).then((res)=>{
       updateProfile(res.user, {
         displayName:username
+      }).then(()=>{
+        setDoc(doc(db, "users",res.user.displayName),{
+          id:res.user.uid,
+          username:username,
+          phone:phone
+        }).then(()=>{
+          navigate('/login');
+        })
       })
-      console.log(res.user)
+      
     })
    };
 

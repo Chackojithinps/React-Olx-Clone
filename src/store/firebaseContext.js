@@ -1,5 +1,7 @@
 import { createContext, useState } from "react";
+
 const FirebaseContext=createContext(null)
+
 export const AuthContext=createContext(null);
 
 export const Context=({children})=>{

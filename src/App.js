@@ -4,7 +4,7 @@ import { Route, BrowserRouter as Router,Routes } from 'react-router-dom';
 import Signup from './Pages/Signup'
 import Login from './Pages/Login'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import Create from './Pages/Create'
 /**
  * ?  =====Import Components=====
  */
@@ -29,6 +29,7 @@ function App() {
               <Route path='/' exact element={<Home/>}/>
               <Route path='/signup' element={<Signup/>}/>
               <Route path='/login' element={<Login/>}/>
+              <Route path='/create' element={<Create/>}/>
           </Routes>
           
        </Router>

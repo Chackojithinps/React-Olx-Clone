@@ -2,20 +2,33 @@ import React, { Fragment, useContext, useState } from 'react';
 import './Create.css';
 import Header from '../Header/Header';
 import { getStorage, ref, uploadBytes,getDownloadURL } from "firebase/storage";
-import FirebaseContext from '../../store/firebaseContext';
+import FirebaseContext, { AuthContext } from '../../store/firebaseContext';
 import { collection, addDoc } from "firebase/firestore"; 
+import { useNavigate } from 'react-router-dom';
+// import { getFirestore } from 'firebase/firestore';
 const Create = () => {
   const [name,setName] = useState('')
   const [category,setCategory] = useState('')
   const [price,setPrice] = useState('')
   const [image,setImage] = useState('')
   const {app,db} =useContext(FirebaseContext)
+  const {user} =useContext(AuthContext)
+  const navigate=useNavigate()
   const handleSubmit=async ()=>{
     const storage = getStorage(app);  
     const storageRef= ref(storage,`/image/${image.name}`)
     await uploadBytes(storageRef,image)
-    const download=getDownloadURL(storageRef)
- 
+    // const firestore = getFirestore(app);
+    const imageUrl= await getDownloadURL(storageRef)
+    await addDoc(collection(db, "products"), {
+      name,
+      category,
+      price,
+      imageUrl:imageUrl,
+      userId:user.uid,
+      createdAt: new Date().toDateString()
+    });
+   navigate('/')
 }
   return (
     <Fragment>

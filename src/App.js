@@ -3,6 +3,7 @@ import './App.css';
 import { Route, BrowserRouter as Router,Routes } from 'react-router-dom';
 import Signup from './Pages/Signup'
 import Login from './Pages/Login'
+import ViewPost from './Pages/ViewPost'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Create from './Pages/Create'
 /**
@@ -10,6 +11,7 @@ import Create from './Pages/Create'
  */
 import Home from './Pages/Home';
 import FirebaseContext, { AuthContext } from './store/firebaseContext';
+
 
 function App() {
   const {setUser} =useContext(AuthContext)
@@ -30,6 +32,7 @@ function App() {
               <Route path='/signup' element={<Signup/>}/>
               <Route path='/login' element={<Login/>}/>
               <Route path='/create' element={<Create/>}/>
+              <Route path='/view' element={<ViewPost/>}/>
           </Routes>
           
        </Router>

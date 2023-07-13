@@ -11,6 +11,7 @@ import Create from './Pages/Create'
  */
 import Home from './Pages/Home';
 import FirebaseContext, { AuthContext } from './store/firebaseContext';
+import Post from './store/postContext';
 
 
 function App() {
@@ -26,8 +27,10 @@ function App() {
 });
   return (
     <div>
+      <Post>
        <Router>
           <Routes>
+            
               <Route path='/' exact element={<Home/>}/>
               <Route path='/signup' element={<Signup/>}/>
               <Route path='/login' element={<Login/>}/>
@@ -36,6 +39,7 @@ function App() {
           </Routes>
           
        </Router>
+       </Post>
     </div>
   );
 }

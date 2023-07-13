@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import Heart from '../../assets/Heart';
 import './Post.css';
 import FirebaseContext from '../../store/firebaseContext';
+import { postContext } from '../../store/postContext';
 
 function Posts() {
   const [posts,setPosts] = useState([])
   const {db} = useContext(FirebaseContext)
+  const {setPost} = useContext(postContext)
   useEffect(() => {
     const q = query(collection(db,"products"))
     const unsub = onSnapshot(q, (querySnapshot) => {
@@ -33,7 +35,7 @@ function Posts() {
         </div>
         <div className="cards" ><Link to="/view">
           {posts.map((product)=>(
-            <div style={{color:"black"}}
+            <div onClick={()=>setPost(product)} style={{color:"black"}}
             className="card"
           >
             <div className="favorite">
